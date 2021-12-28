@@ -8,7 +8,7 @@ function getUsername(href) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    browser.tabs.query({currentWindow: true, active: true}, function (tabs) {
+    browser.tabs.query({ currentWindow: true, active: true }, function (tabs) {
         let tab = tabs[0];
         href = tab.url;
         $.ajax({
@@ -16,11 +16,12 @@ document.addEventListener('DOMContentLoaded', function () {
             dataType: "json",
             success: function (data) {
                 document.getElementById("avatar").src = data.avatar_url;
-                document.getElementById("name").innerHTML = data.name;
-                document.getElementById("login").innerHTML = data.login;
-                document.getElementById("id").innerHTML = data.id;
-                document.getElementById("location").innerHTML = data.location;
+                document.getElementById("name").innerHTML = "Name: " + data.name;
+                document.getElementById("login").innerHTML = "Username: " + data.login;
+                document.getElementById("id").innerHTML = "User ID: " + data.id;
+                document.getElementById("location").innerHTML = "Location: " + data.location;
             },
         });
+        document.getElementById("contribution-graph").src = "https://activity-graph.herokuapp.com/graph?username=" + getUsername(href) + "&theme=xcode&line=e05397&point=FFFFFF&hide_border=true&";
     });
 }, false);
